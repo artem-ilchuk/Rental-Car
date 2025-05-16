@@ -1,0 +1,40 @@
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    image-set(url("/Hero_1x.webp") 1x, url("/Hero_2x.webp") 2x);
+  background-blend-mode: multiply;
+  background-size: cover;
+  background-position: center;
+  height: 700px;
+  width: 100%;
+  color: var(--white);
+}
+
+.content {
+  padding-top: 436px;
+  text-align: center;
+  color: var(--white);
+}
+.title {
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 120%;
+  padding-bottom: 16px;
+}
+.text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  padding-bottom: 40px;
+}
+.nav {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 12px 99px;
+  width: 276px;
+  height: 44px;
+  background: var(--button);
+  color: var(--white);
+}
