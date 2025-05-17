@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCars } from "../../redux/cars/operations";
 import { selectCars } from "../../redux/cars/selectors";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 
 const CarsList = () => {
   const dispatch = useDispatch();
@@ -12,14 +13,18 @@ const CarsList = () => {
   useEffect(() => {
     dispatch(fetchCars());
   }, [dispatch]);
+
   return (
-    <ul className={s.list}>
-      {cars.map((car) => (
-        <li key={car.id} className={s.item}>
-          <Car car={car} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul className={s.list}>
+        {cars.map((car) => (
+          <li key={car.id} className={s.item}>
+            <Car car={car} />
+          </li>
+        ))}
+      </ul>
+      <LoadMoreBtn />
+    </div>
   );
 };
 

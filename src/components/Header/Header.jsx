@@ -13,7 +13,7 @@ const Header = () => {
         <div className={s.head}>
           <NavLink className={s.Logo} to="/">
             <svg className={s.iconLogo} width="104" height="16">
-              <use href="public/Logo.svg#icon-logo" />
+              <use href="/sprite.svg#icon-logo" />
             </svg>
           </NavLink>
           <div className={s.nav}>

@@ -29,3 +29,8 @@
 .active {
   color: var(--button-hover);
 }
+
+.link,
+.logo {
+  cursor: pointer;
+}

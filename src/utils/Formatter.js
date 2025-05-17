@@ -8,3 +8,9 @@ export const formattedAddress = (address) => {
 
   return { city, country };
 };
+
+export const formattedMileage = (mileage) => {
+  if (!mileage) return "";
+
+  return mileage.toLocaleString("en-US").replace(/,/g, " ");
+};

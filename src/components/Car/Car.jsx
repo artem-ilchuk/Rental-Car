@@ -1,10 +1,12 @@
 import s from "./Car.module.css";
 import { NavLink } from "react-router-dom";
-import { formattedAddress } from "../../utils/adressFormatter";
+import { formattedAddress, formattedMileage } from "../../utils/Formatter.js";
 
 const Car = ({ car }) => {
   const defaultImg = "/Image not found.webp";
   const { city, country } = formattedAddress(car.address);
+  const miles = formattedMileage(car.mileage);
+
   return (
     <div className={s.card}>
       <img
@@ -22,16 +24,32 @@ const Car = ({ car }) => {
         </div>
         <p className={s.price}>${car.rentalPrice}</p>
       </div>
-      <p className={s.price}>{car.price}</p>
-      <p className={s.address}>
-        {city},{country}
-      </p>
-      <p className={s.rentalCompany}>{car.rentalCompany}</p>
-      <p className={s.type}>{car.type}</p>
-      <p className={s.mileage}>{car.mileage}</p>
-      <NavLink to={`/catalog/${car.id}`} className={s.nav}>
-        Read more
-      </NavLink>
+      <div className={s.details}>
+        <p className={s.city}>{city}</p>
+        <svg className={s.line} width="2" height="16">
+          <use href="/sprite.svg#divider" />
+        </svg>
+        <p className={s.country}>{country}</p>
+        <svg className={s.line} width="2" height="16">
+          <use href="/sprite.svg#divider" />
+        </svg>
+        <p className={s.rentalCompany}>{car.rentalCompany}</p>
+        <svg className={s.line} width="2" height="16">
+          <use href="/sprite.svg#divider" />
+        </svg>
+      </div>
+      <div className={s.details2}>
+        <p className={s.type}>{car.type}</p>
+        <svg className={s.line} width="2" height="16">
+          <use href="/sprite.svg#divider" />
+        </svg>
+        <p className={s.mileage}>{miles}</p>
+      </div>
+      <div className={s.nav}>
+        <NavLink to={`/catalog/${car.id}`} className={s.link}>
+          Read more
+        </NavLink>
+      </div>
     </div>
   );
 };
