@@ -1,4 +1,4 @@
-const FilterBar = () => {
+const FilterBar = ({ query, brands, prices, onChange }) => {
   return <div>FilterBar</div>;
 };
 

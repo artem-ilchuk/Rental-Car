@@ -8,10 +8,20 @@ export const goItCarsAPI = axios.create({
 
 export const fetchCars = createAsyncThunk(
   "cars/fetchAll",
-  async (_, thunkAPI) => {
+  async ({ query, page }, thunkAPI) => {
     try {
-      const { data } = await goItCarsAPI.get("/cars");
+      const params = new URLSearchParams();
+
+      if (query.brand) params.append("brand", query.brand);
+      if (query.rentalPrice) params.append("rentalPrice", query.rentalPrice);
+      if (query.mileageFrom) params.append("mileageFrom", query.mileageFrom);
+      if (query.mileageTo) params.append("mileageTo", query.mileageTo);
+      params.append("page", page);
+
+      const { data } = await goItCarsAPI.get(`/cars?${params.toString()}`);
+
       toast.success(`Cars found for you successfully!`);
+
       return data;
     } catch (error) {
       toast.error(`Failed to find cars. Please try again.`);

@@ -16,6 +16,9 @@ const Car = ({ car }) => {
         alt="poster"
         className={s.img}
       />
+      <svg className={s.heart} width="16" height="16">
+        <use href="/sprite.svg#heart" />
+      </svg>
       <div className={s.mainInfo}>
         <div className={s.carBrand}>
           <p className={s.brand}>{car.brand}</p>

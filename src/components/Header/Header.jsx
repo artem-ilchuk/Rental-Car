@@ -8,7 +8,7 @@ const buildLinkClass = ({ isActive }) => {
 
 const Header = () => {
   return (
-    <section className={s.header}>
+    <header className={s.header}>
       <div className="container">
         <div className={s.head}>
           <NavLink className={s.Logo} to="/">
@@ -26,7 +26,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </section>
+    </header>
   );
 };
 
