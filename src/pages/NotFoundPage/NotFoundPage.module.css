@@ -1,7 +1,7 @@
 .not {
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     image-set(url("/Hero_1x.webp") 1x, url("/Hero_2x.webp") 2x);
-  padding-top: 300px;
+  padding-top: 180px;
   background-blend-mode: multiply;
   background-size: cover;
   background-position: center;
@@ -24,6 +24,12 @@
   font-size: 26px;
 }
 
+.err {
+  color: #ffffff;
+  font-size: 60px;
+  font-weight: bold;
+}
+
 .link {
   display: inline-block;
   text-decoration: none;
@@ -33,7 +39,7 @@
   font-weight: bold;
   border-radius: 12px;
   padding: 12px 99px;
-  margin-top: 20px;
+  margin-top: 120px;
   border: 2px solid #0d253f;
   border-radius: 5px;
   transition: transform 0.3s ease, background-color 0.3s ease,
