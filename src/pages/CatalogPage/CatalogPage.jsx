@@ -1,6 +1,6 @@
 import s from "./CatalogPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { fetchCars } from "../../redux/cars/operations";
 import toast from "react-hot-toast";
 import {
@@ -23,17 +23,37 @@ const CatalogPage = () => {
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
+  const ITEMS_PER_PAGE = 12;
+
+  const didFetchRef = useRef(false);
 
   useEffect(() => {
-    dispatch(clearCars());
-  }, [dispatch, query]);
+    const fetchData = async () => {
+      dispatch(clearCars());
+      try {
+        const resultAction = await dispatch(
+          fetchCars({ page, query, limit: ITEMS_PER_PAGE })
+        );
 
-  useEffect(() => {
-    dispatch(fetchCars({ page, query }));
+        if (fetchCars.fulfilled.match(resultAction)) {
+          if (!didFetchRef.current) {
+            toast.success("Cars found for you successfully!");
+            didFetchRef.current = true;
+          }
+        } else if (fetchCars.rejected.match(resultAction)) {
+          toast.error("Failed to find cars. Please try again.");
+        }
+      } catch (error) {
+        toast.error("Something went wrong. Please try again.");
+      }
+    };
+
+    fetchData();
   }, [dispatch, page, query]);
 
   const handleChangeQuery = (newQueryPart) => {
     dispatch(setQuery(newQueryPart));
+    didFetchRef.current = false;
   };
 
   const handlePagination = () => {
@@ -53,7 +73,6 @@ const CatalogPage = () => {
       {cars.length > 0 && !isLoading && page < totalPages && (
         <LoadMoreBtn onClick={handlePagination} className={s.loadMoreBtn} />
       )}
-
       {isLoading && <Loader />}
     </div>
   );

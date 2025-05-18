@@ -36,19 +36,18 @@ const carsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCars.fulfilled, (state, { payload }) => {
-        if (payload.page === 1) {
-          state.cars = payload.cars;
+      .addCase(fetchCars.fulfilled, (state, action) => {
+        if (state.page === 1) {
+          state.cars = action.payload.cars;
         } else {
-          state.cars = [...state.cars, ...payload.cars];
+          const existingIds = new Set(state.cars.map((car) => car.id));
+          const newUniqueCars = action.payload.cars.filter(
+            (car) => !existingIds.has(car.id)
+          );
+          state.cars = [...state.cars, ...newUniqueCars];
         }
-        if (payload.page) {
-          state.page = payload.page;
-        }
-        state.totalCars = payload.totalCars;
-        state.totalPages = payload.totalPages;
+        state.totalPages = action.payload.totalPages;
         state.isLoading = false;
-        state.isError = null;
       })
       .addCase(fetchCarById.fulfilled, (state, { payload }) => {
         state.selectedCar = payload;

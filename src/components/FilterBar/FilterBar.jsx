@@ -198,12 +198,7 @@ const FilterBar = ({ onChange }) => {
           Search
         </button>
       </form>
-
-      {isLoading ? (
-        <Loader />
-      ) : carsLength === 0 ? (
-        <p className={s.noMatches}>No matches found</p>
-      ) : null}
+      {carsLength === 0 && <p className={s.noMatches}>No matches found</p>}
     </div>
   );
 };
