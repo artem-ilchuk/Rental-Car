@@ -1,12 +1,30 @@
-# React + Vite
+Rental-car
+Version: 1.0.0
+Author: Ilchuk Artem
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Description
+Rental-car is a web application designed for users looking to rent a car. The platform provides a catalog of available vehicles for rent, allowing users to explore and compare options easily.
 
-Currently, two official plugins are available:
+Features
+View a catalog of rental cars with key details such as brand, model, year, rental price, and location.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Filter cars by:
 
-## Expanding the ESLint configuration
+Brand
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Model
+
+Rental price
+
+Mileage range (from / to)
+
+Click "Read more" on a car card to view detailed information and access the booking form.
+
+Add cars to a personal Favorites list by clicking the heart icon on the car photo.
+
+Three-page application for clear and structured navigation.
+
+Installation:
+
+1. git clone https://github.com/artem-ilchuk/Rental-Car.
+2. Visit https://rental-car-three-alpha.vercel.app/catalog.
