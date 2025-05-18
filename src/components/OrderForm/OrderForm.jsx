@@ -1,5 +1,5 @@
 import s from "./OrderForm.module.css";
-import { ErrorMessage, Field, Form, Formik, useField } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,28 +21,7 @@ const OrderForm = () => {
     resetForm();
   };
 
-  const DatePickerField = ({ ...props }) => {
-    const [field, meta, helpers] = useField(props.name);
-    const { setValue } = helpers;
-
-    return (
-      <div className={s.label}>
-        <DatePicker
-          className={s.input}
-          {...props}
-          selected={field.value}
-          onChange={(val) => setValue(val)}
-          dateFormat="dd/MM/yyyy"
-          placeholderText="Booking date"
-        />
-        {meta.touched && meta.error ? (
-          <span className={s.error}>{meta.error}</span>
-        ) : null}
-      </div>
-    );
-  };
-
-  const feedBackSchema = Yup.object().shape({
+  const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "Minimum is 3 characters long")
       .max(50, "Too long!")
@@ -54,7 +33,7 @@ const OrderForm = () => {
         "Invalid email format"
       )
       .required("Email is required"),
-    date: Yup.date().required("Date is required"),
+    date: Yup.date().required("Date is required").nullable(),
     comment: Yup.string().max(500, "Comment is too long"),
   });
 
@@ -62,101 +41,93 @@ const OrderForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={feedBackSchema}
+      validationSchema={validationSchema}
     >
-      <Form className={s.form}>
-        <div className={s.header}>
-          <h3 className={s.title}>Book your car now</h3>
-          <p className={s.sub}>
-            Stay connected! We are always ready to help you.
-          </p>
-        </div>
-        <div>
-          <div className={s.fiels}>
-            <div className={s.req}>
-              <label className={s.label}>
+      {({ values, setFieldValue }) => (
+        <Form className={s.form}>
+          <div className={s.header}>
+            <h3 className={s.title}>Book your car now</h3>
+            <p className={s.sub}>
+              Stay connected! We are always ready to help you.
+            </p>
+          </div>
+          <div>
+            <div className={s.fiels}>
+              <div className={s.req}>
+                <label className={s.label}>
+                  <Field
+                    name="name"
+                    type="text"
+                    className={s.input}
+                    placeholder="Name*"
+                  />
+                  <ErrorMessage
+                    className={s.error}
+                    name="name"
+                    component="span"
+                  />
+                </label>
+              </div>
+
+              <div className={s.req}>
+                <label className={s.label}>
+                  <Field
+                    name="email"
+                    type="email"
+                    className={s.input}
+                    placeholder="Email*"
+                  />
+                  <ErrorMessage
+                    className={s.error}
+                    name="email"
+                    component="span"
+                  />
+                </label>
+              </div>
+
+              <div className={s.req}>
+                <label className={s.label}>
+                  <DatePicker
+                    selected={values.date}
+                    onChange={(date) => setFieldValue("date", date)}
+                    placeholderText="Booking Date"
+                    className={s.input}
+                    dateFormat="dd/MM/yyyy"
+                    minDate={new Date()}
+                    calendarClassName="custom-datepicker" // если хочешь стилизовать календарь отдельно
+                  />
+                  <ErrorMessage
+                    className={s.error}
+                    name="date"
+                    component="span"
+                  />
+                </label>
+              </div>
+
+              <div className={s.req}>
                 <Field
-                  name="name"
-                  type="text"
-                  className={s.input}
-                  placeholder="Name*"
+                  as="textarea"
+                  name="comment"
+                  className={s.textarea}
+                  rows="4"
+                  placeholder="Comment"
                 />
                 <ErrorMessage
                   className={s.error}
-                  name="name"
+                  name="comment"
                   component="span"
                 />
-              </label>
-            </div>
-            <div className={s.req}>
-              <label className={s.label}>
-                <Field
-                  name="email"
-                  type="email"
-                  className={s.input}
-                  placeholder="Email*"
-                />
-                <ErrorMessage
-                  className={s.error}
-                  name="email"
-                  component="span"
-                />
-              </label>
-            </div>
-            <div className={s.req}>
-              <DatePickerField
-                name="date"
-                minDate={new Date()}
-                calendarClassName="react-datepicker"
-                renderCustomHeader={({
-                  date,
-                  increaseMonth,
-                  decreaseMonth,
-                  prevMonthButtonDisabled,
-                  nextMonthButtonDisabled,
-                }) => (
-                  <div className={s.headerWrap}>
-                    <button
-                      type="button"
-                      className="react-datepicker__navigation react-datepicker__navigation--previous"
-                      onClick={decreaseMonth}
-                      disabled={prevMonthButtonDisabled}
-                      aria-label="Previous Month"
-                    />
-                    <span className={s.monthLabel}>
-                      {date.toLocaleString("default", {
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </span>
-                    <button
-                      type="button"
-                      className="react-datepicker__navigation react-datepicker__navigation--next"
-                      onClick={increaseMonth}
-                      disabled={nextMonthButtonDisabled}
-                      aria-label="Next Month"
-                    />
-                  </div>
-                )}
-              />
+              </div>
             </div>
 
-            <Field
-              as="textarea"
-              name="comment"
-              className={s.textarea}
-              rows="4"
-              placeholder="Comment"
-            />
+            <div className={s.buttonWrapper}>
+              <button className={s.button} type="submit">
+                Send
+              </button>
+            </div>
           </div>
-
-          <div className={s.buttonWrapper}>
-            <button className={s.button} type="submit">
-              Send
-            </button>
-          </div>
-        </div>
-      </Form>
+        </Form>
+      )}
     </Formik>
   );
 };
