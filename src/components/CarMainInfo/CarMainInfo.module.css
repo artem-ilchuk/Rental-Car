@@ -1,0 +1,63 @@
+.main {
+  max-width: 488px;
+  height: 180px;
+}
+
+.location use {
+  fill: black;
+}
+
+.car {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: baseline;
+}
+.brand {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  text-align: center;
+  color: var(--main);
+}
+.id {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--gray);
+}
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 16px;
+}
+
+.mile,
+.address {
+  padding-left: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--main);
+}
+
+.mile {
+  padding-left: 16px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  color: var(--button);
+  padding-bottom: 32px;
+}
+.description {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--main);
+  text-wrap: wrap;
+}

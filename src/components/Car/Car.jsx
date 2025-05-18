@@ -1,11 +1,23 @@
 import s from "./Car.module.css";
 import { NavLink } from "react-router-dom";
 import { formattedAddress, formattedMileage } from "../../utils/Formatter.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsFavorite } from "../../redux/filters/selectors.js";
+import { addToList, removeFromList } from "../../redux/filters/slice.js";
 const Car = ({ car }) => {
   const defaultImg = "/Image not found.webp";
   const { city, country } = formattedAddress(car.address);
   const miles = formattedMileage(car.mileage);
+
+  const dispatch = useDispatch();
+  const isActive = useSelector(selectIsFavorite(car.id));
+  const switchIcon = () => {
+    if (isActive) {
+      dispatch(removeFromList(car.id));
+    } else {
+      dispatch(addToList(car));
+    }
+  };
 
   return (
     <div className={s.card}>
@@ -16,9 +28,17 @@ const Car = ({ car }) => {
         alt="poster"
         className={s.img}
       />
-      <svg className={s.heart} width="16" height="16">
-        <use href="/sprite.svg#heart" />
-      </svg>
+      <div onClick={switchIcon}>
+        {!isActive ? (
+          <svg className={s.heart}>
+            <use href="/sprite.svg#heart_def" />
+          </svg>
+        ) : (
+          <svg className={s.heartActive}>
+            <use href="/sprite.svg#heart_active" />
+          </svg>
+        )}
+      </div>
       <div className={s.mainInfo}>
         <div className={s.carBrand}>
           <p className={s.brand}>{car.brand}</p>

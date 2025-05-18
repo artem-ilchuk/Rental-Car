@@ -35,8 +35,14 @@
   padding: 12px 99px;
   width: 276px;
   height: 44px;
-  background: var(--button);
+  background-color: var(--button);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.nav:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.05);
 }

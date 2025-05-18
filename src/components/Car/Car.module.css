@@ -10,7 +10,11 @@
   display: block;
   border-radius: 14px;
 }
-.heart {
+
+.heart,
+.heartActive {
+  width: 16px;
+  height: 16px;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -18,10 +22,15 @@
   transition: transform 0.2s ease;
 }
 
-.heart:hover {
-  transform: scale(1.1);
+.heart {
+  stroke: var(--white);
+  fill: var(--white);
 }
 
+.heartActive {
+  fill: var(--button);
+  stroke: var(--button);
+}
 .mainInfo {
   display: flex;
   flex-direction: row;

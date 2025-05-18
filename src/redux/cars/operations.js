@@ -10,21 +10,24 @@ export const fetchCars = createAsyncThunk(
   "cars/fetchAll",
   async ({ query, page }, thunkAPI) => {
     try {
-      const params = new URLSearchParams();
+      const cleanedFilters = Object.fromEntries(
+        Object.entries(query || {}).filter(
+          ([_, value]) => value !== undefined && value !== ""
+        )
+      );
 
-      if (query.brand) params.append("brand", query.brand);
-      if (query.rentalPrice) params.append("rentalPrice", query.rentalPrice);
-      if (query.mileageFrom) params.append("mileageFrom", query.mileageFrom);
-      if (query.mileageTo) params.append("mileageTo", query.mileageTo);
-      params.append("page", page);
+      const params = new URLSearchParams({
+        ...cleanedFilters,
+        page: String(page),
+      });
 
       const { data } = await goItCarsAPI.get(`/cars?${params.toString()}`);
 
-      toast.success(`Cars found for you successfully!`);
+      toast.success("Cars found for you successfully!");
 
       return data;
     } catch (error) {
-      toast.error(`Failed to find cars. Please try again.`);
+      toast.error("Failed to find cars. Please try again.");
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -35,11 +38,23 @@ export const fetchCarById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await goItCarsAPI.get(`/cars/${id}`);
-      toast.success(`The details of your chosen car found successfully!`);
+      toast.success("The details of chosen car found successfully!");
       return data;
     } catch (error) {
-      toast.error(`Failed to find details. Please try again.`);
+      toast.error("Failed to find details. Please try again.");
       return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getBrands = createAsyncThunk(
+  "cars/brands",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await goItCarsAPI.get("/brands");
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );

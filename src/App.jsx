@@ -14,7 +14,7 @@ const CarDetailsPage = lazy(() =>
 function App() {
   return (
     <>
-      <Suspense fallback={<div>Loading page...</div>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />

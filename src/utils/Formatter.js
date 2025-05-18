@@ -14,3 +14,7 @@ export const formattedMileage = (mileage) => {
 
   return mileage.toLocaleString("en-US").replace(/,/g, " ");
 };
+
+export const formattedId = (id) => {
+  return typeof id === "string" ? id.slice(0, 4) : "";
+};
