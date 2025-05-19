@@ -24,17 +24,14 @@ const CatalogPage = () => {
   const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
   const ITEMS_PER_PAGE = 12;
-
   const didFetchRef = useRef(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch(clearCars());
       try {
         const resultAction = await dispatch(
           fetchCars({ page, query, limit: ITEMS_PER_PAGE })
         );
-
         if (fetchCars.fulfilled.match(resultAction)) {
           if (!didFetchRef.current) {
             toast.success("Cars found for you successfully!");
@@ -43,7 +40,7 @@ const CatalogPage = () => {
         } else if (fetchCars.rejected.match(resultAction)) {
           toast.error("Failed to find cars. Please try again.");
         }
-      } catch (error) {
+      } catch {
         toast.error("Something went wrong. Please try again.");
       }
     };
@@ -52,6 +49,8 @@ const CatalogPage = () => {
   }, [dispatch, page, query]);
 
   const handleChangeQuery = (newQueryPart) => {
+    dispatch(clearCars());
+    dispatch(setPage(1));
     dispatch(setQuery(newQueryPart));
     didFetchRef.current = false;
   };
@@ -61,7 +60,7 @@ const CatalogPage = () => {
       dispatch(setPage(Number(page) + 1));
     } else {
       toast.info(
-        `We are sorry, but you have reached the end of search results.`
+        "We are sorry, but you have reached the end of search results."
       );
     }
   };
